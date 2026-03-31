@@ -99,9 +99,23 @@ def main():
     cfg.training.device = args.device
 
     if args.demo:
+        # Shrink everything for a fast, memory-friendly demo
         cfg.training.stage1_epochs = 3
         cfg.training.stage2_epochs = 3
         cfg.training.early_stopping_patience = 100  # disable
+        cfg.preprocess.max_trace_len = 500           # much shorter traces
+        cfg.packet_transformer.d_model = 64
+        cfg.packet_transformer.nhead = 4
+        cfg.packet_transformer.num_layers = 2
+        cfg.packet_transformer.dim_feedforward = 128
+        cfg.packet_transformer.embedding_dim = 64
+        cfg.session_transformer.d_model = 64
+        cfg.session_transformer.nhead = 4
+        cfg.session_transformer.num_layers = 1
+        cfg.session_transformer.dim_feedforward = 128
+        cfg.multitask.n_sites = 20
+        cfg.multitask.n_intents = 4
+        cfg.multitask.hidden_dim = 64
         n_traces = 200
         n_sessions = 80
         logger.info("🚀 Demo mode: using minimal epochs and small data")
