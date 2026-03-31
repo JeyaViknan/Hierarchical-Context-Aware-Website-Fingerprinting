@@ -1,0 +1,49 @@
+preprocess:
+  max_trace_len: 2000
+  clip_size: 20000
+  include_timing: true
+  n_features: 2
+session:
+  min_session_len: 2
+  max_session_len: 5
+  time_gap_threshold: 30.0
+  simulate_timestamps: true
+packet_transformer:
+  d_model: 128
+  nhead: 4
+  num_layers: 3
+  dim_feedforward: 256
+  dropout: 0.1
+  embedding_dim: 128
+  use_relative_pos: true
+session_transformer:
+  d_model: 128
+  nhead: 4
+  num_layers: 2
+  dim_feedforward: 256
+  dropout: 0.1
+  max_session_len: 5
+transition_attention:
+  max_session_len: 5
+  learnable_bias: true
+multitask:
+  n_sites: 100
+  n_intents: 6
+  hidden_dim: 128
+  dropout: 0.2
+training:
+  stage1_epochs: 3
+  stage1_lr: 0.001
+  stage1_batch_size: 64
+  stage1_weight_decay: 0.0001
+  stage2_epochs: 3
+  stage2_lr: 0.0005
+  stage2_batch_size: 32
+  stage2_weight_decay: 0.0001
+  intent_loss_weight: 0.3
+  label_smoothing: 0.1
+  seed: 42
+  device: auto
+  checkpoint_dir: checkpoints
+  log_interval: 10
+  early_stopping_patience: 100
